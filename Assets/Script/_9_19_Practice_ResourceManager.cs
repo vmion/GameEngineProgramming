@@ -16,9 +16,12 @@ public class _9_19_Practice_ResourceManager : MonoBehaviour
     const string rcNpcFolder = "/Npc";
     private void Awake()
     {
-        rcPlayerList = new List<GameObject>();
-        rcMonsterList = new List<GameObject>();
-        rcNpcList = new List<GameObject>();
+        //rcPlayerList = new List<GameObject>();
+        //rcMonsterList = new List<GameObject>();
+        //rcNpcList = new List<GameObject>();
+        LoadrcPlayer();
+        LoadrcMonster();
+        LoadrcNpc();
     }
     //프리팹을 리스트에 저장
     void LoadrcPlayer()
@@ -60,5 +63,4 @@ public class _9_19_Practice_ResourceManager : MonoBehaviour
     {
         return rcNpcList.Find(o => (o.name.Equals(_assetName)));
     }
-
 }

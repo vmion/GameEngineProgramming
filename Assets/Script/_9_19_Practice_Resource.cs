@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /*
  1.게임실행중에 키보드 스페이스바를 누르면 TrollGiant라는 프리팹을 로드하여
  인스턴스를 생성한다.
@@ -75,7 +76,7 @@ public class _9_19_Practice_Resource : MonoBehaviour
                                                        Random.Range(0f, 10f));
             createObj.transform.SetParent(monsterParent);
             monsterlist.Add(createObj);
-        }            
+        }
     }
     public void Answer_3_1()
     {
