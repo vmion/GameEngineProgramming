@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class _9_21_MechanimAnimation : MonoBehaviour
+{
+    public Animator ani;
+    Vector3 end; //게임공간상의 목표지점
+    float moveSpeed;
+    float rotateSpeed;
+    public Transform Enemy;       
+    void Start()
+    {
+        moveSpeed = 2f;
+        rotateSpeed = 5f;
+        end = transform.position;        
+        Enemy = null;
+    }        
+    public void TestAnimation()
+    {
+        //aniIndex의 자료형을 int로 지정했기 때문에 SetInteger사용
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ani.SetInteger("aniIndex", 0);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            ani.SetInteger("aniIndex", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            ani.SetInteger("aniIndex", 2);
+        }
+    }
+    void Update()
+    {               
+        //이동
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity))
+            {
+                if(hitInfo.collider.CompareTag("Monster"))
+                {
+                    end = hitInfo.collider.transform.position;
+                    Enemy = hitInfo.collider.transform;
+                    Debug.Log("몬스터 선택");
+                }
+                else if(hitInfo.collider.CompareTag("Terrain"))
+                {
+                    Debug.Log("마우스로 선택한 위치 = " + hitInfo.point);
+                    end = hitInfo.point;
+                    Enemy = null;
+                }
+                else if(hitInfo.collider.CompareTag("Player"))
+                {
+                    Debug.Log("플레이어 선택 -> UI 활성화");
+                    Enemy = null;
+                }
+            }
+        }
+                
+        if (Enemy != null)
+        {
+            //적과의 거리 계산
+            float distance = Vector3.Distance(transform.position, end);
+            if(distance <= 1f)
+            {
+                end = transform.position;
+                ani.SetInteger("aniIndex", 2);                
+            }
+            else
+            {
+                ani.SetInteger("aniIndex", 1);
+            }
+        }
+        else
+        {
+            //Idle
+            if (transform.position == end)
+            {
+                ani.SetInteger("aniIndex", 0);
+            }
+            //Run
+            else if (transform.position != end)
+            {
+                ani.SetInteger("aniIndex", 1);
+            }
+        }
+        transform.position = Vector3.MoveTowards(transform.position, end, Time.deltaTime * moveSpeed);
+        //회전계산 - 높이를 같게하여 회전계산
+        Vector3 tmpEnd = end;
+        tmpEnd.y = transform.position.y;
+        Vector3 dir = tmpEnd - transform.position;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, dir.normalized, Time.deltaTime * rotateSpeed, 0);
+        transform.rotation = Quaternion.LookRotation(newDir.normalized);
+    }
+}
