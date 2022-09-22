@@ -5,16 +5,18 @@ using UnityEngine;
 public class _9_21_MechanimAnimation : MonoBehaviour
 {
     public Animator ani;
-    Vector3 end; //게임공간상의 목표지점
+    public Vector3 end { get; set; } 
     float moveSpeed;
     float rotateSpeed;
-    public Transform Enemy;       
+    public Transform Enemy { get; set; }   
+    public float attackRange { get; set; }
     void Start()
     {
         moveSpeed = 2f;
         rotateSpeed = 5f;
         end = transform.position;        
         Enemy = null;
+        attackRange = 2f;
     }        
     public void TestAnimation()
     {
@@ -31,6 +33,18 @@ public class _9_21_MechanimAnimation : MonoBehaviour
         {
             ani.SetInteger("aniIndex", 2);
         }
+    }
+    public void PlayerMove()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, end, Time.deltaTime * moveSpeed);
+    }
+    public void PlayerRotate()
+    {
+        Vector3 tmpEnd = end;
+        tmpEnd.y = transform.position.y;
+        Vector3 dir = tmpEnd - transform.position;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, dir.normalized, Time.deltaTime * rotateSpeed, 0);
+        transform.rotation = Quaternion.LookRotation(newDir.normalized);
     }
     void Update()
     {               
@@ -60,7 +74,7 @@ public class _9_21_MechanimAnimation : MonoBehaviour
                 }
             }
         }
-                
+        /*        
         if (Enemy != null)
         {
             //적과의 거리 계산
@@ -95,5 +109,6 @@ public class _9_21_MechanimAnimation : MonoBehaviour
         Vector3 dir = tmpEnd - transform.position;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, dir.normalized, Time.deltaTime * rotateSpeed, 0);
         transform.rotation = Quaternion.LookRotation(newDir.normalized);
+        */
     }
 }
