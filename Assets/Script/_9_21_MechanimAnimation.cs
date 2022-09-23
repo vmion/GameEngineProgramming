@@ -40,6 +40,7 @@ public class _9_21_MechanimAnimation : MonoBehaviour
     }
     public void PlayerRotate()
     {
+        //회전계산 - 높이를 같게하여 회전계산
         Vector3 tmpEnd = end;
         tmpEnd.y = transform.position.y;
         Vector3 dir = tmpEnd - transform.position;
@@ -74,41 +75,14 @@ public class _9_21_MechanimAnimation : MonoBehaviour
                 }
             }
         }
-        /*        
-        if (Enemy != null)
+        if(Input.GetKeyDown(KeyCode.Q))
         {
-            //적과의 거리 계산
-            float distance = Vector3.Distance(transform.position, end);
-            if(distance <= 1f)
-            {
-                end = transform.position;
-                ani.SetInteger("aniIndex", 2);                
-            }
-            else
-            {
-                ani.SetInteger("aniIndex", 1);
-            }
+            ani.SetTrigger("TrollGiantshout");
         }
-        else
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            //Idle
-            if (transform.position == end)
-            {
-                ani.SetInteger("aniIndex", 0);
-            }
-            //Run
-            else if (transform.position != end)
-            {
-                ani.SetInteger("aniIndex", 1);
-            }
+            ani.SetTrigger("TrollGiantmagic");
         }
-        transform.position = Vector3.MoveTowards(transform.position, end, Time.deltaTime * moveSpeed);
-        //회전계산 - 높이를 같게하여 회전계산
-        Vector3 tmpEnd = end;
-        tmpEnd.y = transform.position.y;
-        Vector3 dir = tmpEnd - transform.position;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, dir.normalized, Time.deltaTime * rotateSpeed, 0);
-        transform.rotation = Quaternion.LookRotation(newDir.normalized);
-        */
+
     }
 }
