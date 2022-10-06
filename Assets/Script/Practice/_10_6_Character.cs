@@ -9,8 +9,10 @@ public interface ISkill
     public void threeSkill();
     public void fourSkill();    
 }
-public class _10_6_Character : MonoBehaviour, ISkill
+
+public class _10_6_Character<T> : MonoBehaviour, ISkill
 {
+    public T info { get; set; }
     void Start()
     {
         

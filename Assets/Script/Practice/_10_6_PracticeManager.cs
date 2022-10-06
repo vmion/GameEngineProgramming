@@ -9,6 +9,7 @@ public class _10_6_PracticeManager : MonoBehaviour
     {
         _10_6_InstanceManager.instance.Initialize();
         _10_6_InstanceManager.instance.CreatePlayer("TrollGiant");
+        _10_6_InstanceManager.instance.CreateMonster("Golem");
     }
 
     // Update is called once per frame

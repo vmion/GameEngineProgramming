@@ -11,7 +11,7 @@ namespace Assets.Script.Practice
             Vector3 origin = _origin;
             origin.y += 200f;
             RaycastHit hitInfo;
-            int layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Pat");
+            int layerMask = (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Monster"));
             layerMask = ~layerMask;
             if (Physics.Raycast(origin, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
             {
