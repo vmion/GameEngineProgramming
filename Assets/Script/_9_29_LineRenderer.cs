@@ -26,7 +26,7 @@ public class _9_29_LineRenderer : MonoBehaviour
     void FindTarget()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, Mathf.Infinity)) ;
+        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, Mathf.Infinity))
         {
             targetPosition = hitInfo.point;
         }
